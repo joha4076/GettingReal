@@ -41,11 +41,11 @@ namespace ConsoleApplication1
                     break;
 
                 case "AddNote":
-                    if (!SQLCon.LoggedIn())
-                    {
-                        Console.WriteLine("Please log in before trying to add a new note");
-                        break;
-                    }
+                    //if (!SQLCon.LoggedIn())
+                    //{
+                    //    Console.WriteLine("Please log in before trying to add a new note");
+                    //    break;
+                    //}
                     AddNote(SQLCon);
                     break;
 
@@ -134,10 +134,10 @@ namespace ConsoleApplication1
             }
         }
 
-            private void AddNote(SQLConnection SQLcon)
+        private void AddNote(SQLConnection SQLcon)
         {
             bool enteringInformation = true;
-            string currentInformationState = "AddNote";
+            string currentInformationState = "ElevNote";
             string userInput;
             string ElevNote = "";
             Console.WriteLine("Intast en Note til en elev, eller skriv 'cancel' for at afbryde");
@@ -160,8 +160,8 @@ namespace ConsoleApplication1
                           ElevNote = userInput;
                           currentInformationState = "Confirmation";
                           Console.WriteLine("Du har nu intastet:"
-                              + "/r/n En ElevNote:"
-                              + "/r/n skriv apply for at tilføje Noten, eller cancel for at abryde");
+                              + "\r\n En ElevNote:"
+                              + "\r\n skriv apply for at tilføje Noten, eller cancel for at abryde");
                           break;
 
                     case "Confirmation":
@@ -172,7 +172,7 @@ namespace ConsoleApplication1
                             Console.WriteLine("AddNote var abrudt");
                             break;
                         }
-                        SQLcon.AddNote(ElevNote);
+                        //SQLcon.AddNote(ElevNote);
                         enteringInformation = false;
                         Console.WriteLine("ElevNote" + ElevNote + "was added");
                         break;
