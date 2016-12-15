@@ -15,34 +15,45 @@ namespace ConsoleApplication1
             switch (userInput)
             {
                 case "login":
-                        if(!SQLCon.LoggedIn())
-                            SQLCon.LogIn();
-                        break;
+                    if (!SQLCon.LoggedIn())
+                        SQLCon.LogIn();
+                    break;
 
                 case "logout":
-                        if (SQLCon.LoggedIn())
-                            SQLCon.LogOut();
-                        break;
+                    if (SQLCon.LoggedIn())
+                        SQLCon.LogOut();
+                    break;
 
                 case "logged in":
-                        if (SQLCon.LoggedIn())
-                            Console.WriteLine("You are currently logged in");
-                        else if (!SQLCon.LoggedIn())
-                            Console.WriteLine("You are currently logged out");
-                        break;
+                    if (SQLCon.LoggedIn())
+                        Console.WriteLine("You are currently logged in");
+                    else if (!SQLCon.LoggedIn())
+                        Console.WriteLine("You are currently logged out");
+                    break;
+
                 case "AddStudent":
-                    if(!SQLCon.LoggedIn())
+                    if (!SQLCon.LoggedIn())
                     {
                         Console.WriteLine("Please log in before trying to add a new student");
                         break;
                     }
                     AddStudent(SQLCon);
                     break;
+
+                case "AddNote":
+                    if (!SQLCon.LoggedIn())
+                    {
+                        Console.WriteLine("Please log in before trying to add a new note");
+                        break;
+                    }
+                    AddNote(SQLCon);
+                    break;
+
                 case "help":
-                    Console.WriteLine("Your current available commands are: \r\n" + " login, logout, logged in, AddStudent, close");
+                    Console.WriteLine("Your current available commands are: \r\n" + " login, logout, logged in, AddStudent, AddNote, close");
                     break;
                 default:
-                        break;
+                    break;
             }
         }
 
@@ -54,7 +65,7 @@ namespace ConsoleApplication1
             string EfterNavn = ""; string ForNavn = ""; string Klasse = "";
             Console.WriteLine("Intast EfterNavn, eller skriv 'cancel' for at afbryde");
 
-            while(enteringInformation)
+            while (enteringInformation)
             {
                 userInput = Console.ReadLine();
 
@@ -90,7 +101,7 @@ namespace ConsoleApplication1
 
                     case "Klasse":
 
-                        if(userInput == "cancel")
+                        if (userInput == "cancel")
                         {
                             enteringInformation = false;
                             Console.WriteLine("AddStudent var afbrudt");
@@ -99,10 +110,10 @@ namespace ConsoleApplication1
 
                         Klasse = userInput;
                         currentInformationState = "Confirmation";
-                        Console.WriteLine("Du har nu intastet:" 
-                            + "\r\n Efternavn: " + EfterNavn 
-                            + "\r\n Fornavn: " + ForNavn 
-                            + "\r\n Klasse: " + Klasse 
+                        Console.WriteLine("Du har nu intastet:"
+                            + "\r\n Efternavn: " + EfterNavn
+                            + "\r\n Fornavn: " + ForNavn
+                            + "\r\n Klasse: " + Klasse
                             + "\r\n skriv apply for at tilføje eller cancel for at afbryde");
                         break;
 
@@ -122,5 +133,54 @@ namespace ConsoleApplication1
                 }
             }
         }
+
+            private void AddNote(SQLConnection SQLcon)
+        {
+            bool enteringInformation = true;
+            string currentInformationState = "AddNote";
+            string userInput;
+            string ElevNote = "";
+            Console.WriteLine("Intast en Note til en elev, eller skriv 'cancel' for at afbryde");
+
+            while (enteringInformation)
+            {
+                userInput = Console.ReadLine();
+
+                switch (currentInformationState)
+                {
+                    case "ElevNote":
+
+                        if (userInput == "cancel")
+                        {
+                            enteringInformation = false;
+                            Console.WriteLine("AddNote var afbrudt");
+                            break;
+                        }
+
+                          ElevNote = userInput;
+                          currentInformationState = "Confirmation";
+                          Console.WriteLine("Du har nu intastet:"
+                              + "/r/n En ElevNote:"
+                              + "/r/n skriv apply for at tilføje Noten, eller cancel for at abryde");
+                          break;
+
+                    case "Confirmation":
+
+                        if (userInput == "cancel")
+                        {
+                            enteringInformation = false;
+                            Console.WriteLine("AddNote var abrudt");
+                            break;
+                        }
+                        SQLcon.AddNote(ElevNote);
+                        enteringInformation = false;
+                        Console.WriteLine("ElevNote" + ElevNote + "was added");
+                        break;
+
+                }
+            }
+        }
+    
+        
     }
 }

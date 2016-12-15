@@ -11,10 +11,11 @@ namespace ConsoleApplication1
     class Program
     {
         SQLConnection SQLCon = new SQLConnection();
-        ConsoleCommands CCommand = new ConsoleCommands(string Efternavn, string Fornavn, string Klasse);
+        ConsoleCommands CCommand = new ConsoleCommands();
+        //string Efternavn, string Fornavn, string Klasse);
 
-        public string Efternavn { get; set; }
-        public string Fornavn { get; set; }
+        //public string Efternavn { get; set; }
+        //public string Fornavn { get; set; }
 
         static void Main(string[] args)
         {

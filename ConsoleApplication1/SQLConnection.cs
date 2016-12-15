@@ -65,6 +65,20 @@ namespace ConsoleApplication1
                 Console.WriteLine("Error When Executing 'AddStudent': " + errormessage);
             }
         }
+        public void AddNote(string ElevNote)
+        {
+            try
+            {
+                SqlCommand cmd1 = new SqlCommand("AddNote", SqlCon);
+                cmd1.CommandType = CommandType.StoredProcedure;
+                cmd1.Parameters.Add(new SqlParameter("ElevNote", ElevNote));
+                cmd1.ExecuteNonQuery();
+            }
+            catch (SqlException errormessage)
+            {
+                Console.WriteLine("Fejl ved forsøg på at skabe en ElevNote" + errormessage);
+            }
+        }
 
     }
 }
