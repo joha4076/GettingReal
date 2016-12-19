@@ -65,12 +65,13 @@ namespace ConsoleApplication1
                 Console.WriteLine("Error When Executing 'AddStudent': " + errormessage);
             }
         }
-        public void AddNote(string ElevNote)
+        public void AddNote(int ElevID, string ElevNote)
         {
             try
             {
                 SqlCommand cmd1 = new SqlCommand("AddNote", SqlCon);
                 cmd1.CommandType = CommandType.StoredProcedure;
+                cmd1.Parameters.Add(new SqlParameter("ElevID", ElevID));
                 cmd1.Parameters.Add(new SqlParameter("ElevNote", ElevNote));
                 cmd1.ExecuteNonQuery();
             }

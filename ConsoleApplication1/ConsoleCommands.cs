@@ -137,17 +137,36 @@ namespace ConsoleApplication1
         private void AddNote(SQLConnection SQLcon)
         {
             bool enteringInformation = true;
-            string currentInformationState = "ElevNote";
+            string currentInformationState = "ElevID";
             string userInput;
+            int ElevID = ' ';
             string ElevNote = "";
-            Console.WriteLine("Intast en Note til en elev, eller skriv 'cancel' for at afbryde");
+            Console.WriteLine("Intast ID'et på eleven du vil lave en note til, eller skriv 'cancel' for at afbryde");
 
             while (enteringInformation)
             {
                 userInput = Console.ReadLine();
 
+                //int selectoption;
+                //if(int.TryParse(userInput, out selectoption))
+
                 switch (currentInformationState)
                 {
+                    case "ElevID":
+                        if (userInput == "cancel")
+                        {
+                            enteringInformation = false;
+                            Console.WriteLine("AddNote var afbrudt");
+                            break;
+                        }
+
+                        ElevID = ' '; //userInput;
+                        currentInformationState = "ElevNote";
+                        Console.WriteLine("Indtast nu Elev Noten, eller skriv 'cancel' for at afbryde");
+                        break;
+
+
+
                     case "ElevNote":
 
                         if (userInput == "cancel")
@@ -157,12 +176,12 @@ namespace ConsoleApplication1
                             break;
                         }
 
-                          ElevNote = userInput;
-                          currentInformationState = "Confirmation";
-                          Console.WriteLine("Du har nu intastet:"
-                              + "\r\n En ElevNote:"
-                              + "\r\n skriv apply for at tilføje Noten, eller cancel for at abryde");
-                          break;
+                        ElevNote = userInput;
+                        currentInformationState = "Confirmation";
+                        Console.WriteLine("Du har nu intastet:"
+                            + "\r\n En ElevNote"
+                            + "\r\n skriv apply for at tilføje Noten, eller cancel for at abryde");
+                        break;
 
                     case "Confirmation":
 
@@ -180,7 +199,7 @@ namespace ConsoleApplication1
                 }
             }
         }
-    
-        
+
+
     }
 }
