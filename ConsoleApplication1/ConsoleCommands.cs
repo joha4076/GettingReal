@@ -17,11 +17,13 @@ namespace ConsoleApplication1
                 case "login":
                     if (!SQLCon.LoggedIn())
                         SQLCon.LogIn();
+                    Console.WriteLine("Welcome, You've succesfully logged in");
                     break;
 
                 case "logout":
                     if (SQLCon.LoggedIn())
                         SQLCon.LogOut();
+                    Console.WriteLine("Bye");
                     break;
 
                 case "logged in":
@@ -41,11 +43,11 @@ namespace ConsoleApplication1
                     break;
 
                 case "AddNote":
-                    //if (!SQLCon.LoggedIn())
-                    //{
-                    //    Console.WriteLine("Please log in before trying to add a new note");
-                    //    break;
-                    //}
+                    if (!SQLCon.LoggedIn())
+                    {
+                        Console.WriteLine("Please log in before trying to add a new note");
+                        break;
+                    }
                     AddNote(SQLCon);
                     break;
 
@@ -139,16 +141,14 @@ namespace ConsoleApplication1
             bool enteringInformation = true;
             string currentInformationState = "ElevID";
             string userInput;
-            int ElevID = ' ';
-            string ElevNote = "";
+            int ElevID = ' ';   
+            bool succes = int.TryParse("", out ElevID);
+            string ElevNote = " ";
             Console.WriteLine("Intast ID'et på eleven du vil lave en note til, eller skriv 'cancel' for at afbryde");
 
             while (enteringInformation)
             {
                 userInput = Console.ReadLine();
-
-                //int selectoption;
-                //if(int.TryParse(userInput, out selectoption))
 
                 switch (currentInformationState)
                 {
@@ -160,8 +160,10 @@ namespace ConsoleApplication1
                             break;
                         }
 
-                        ElevID = ' '; //userInput;
-                        currentInformationState = "ElevNote";
+                        ElevID = ' ';//userInput;
+                        //int selectoption;
+                        //if (int.TryParse(userInput, out selectoption))
+                            currentInformationState = "ElevNote";
                         Console.WriteLine("Indtast nu Elev Noten, eller skriv 'cancel' for at afbryde");
                         break;
 
@@ -193,7 +195,7 @@ namespace ConsoleApplication1
                         }
                         //SQLcon.AddNote(ElevNote);
                         enteringInformation = false;
-                        Console.WriteLine("ElevNote" + ElevNote + "was added");
+                        Console.WriteLine("ElevNote til elev " + ElevID + " was added");
                         break;
 
                 }
